@@ -1,12 +1,146 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Hola mundo</h1>
-</body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.98.0">
+    <title>Clase 03 Coder House</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sign-in/">
+
+<!--link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet" -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+  <!--Archivos de javascript externos al html-->
+  
+  <!--script src="js/main.js"></script-->
+
+  <script type="text/javascript">
+    // en esta seccion tenemos codigo JS envebido en el HTML
+   // alert("bienvenidos del el HTML");
+
+   // Lucas Carrera
+   function probarCodigo()
+{
+    {   
+        // ejercicio de concatenacion
+        let nombreIngresado=prompt("ingrese su nombre");
+        let respuesta="s";
+        let edad;
+
+        console.log("Hola, bienvenido "+ nombreIngresado);
+        
+        while(respuesta=="s")
+       {
+         edad=parseInt(prompt("ingrese su edad"));
+         if(edad>17)
+         {
+           console.log("usted es mayor de edad");
+         }
+        
+         if(edad<18)
+         {
+             console.log("usted es menor de edad");
+         }
+         respuesta=prompt("Si quiere correguir la edad, presione (s), en caso contrario ingrese cualquier tecla para terminar de cargar los datos");
+
+       }//fin del while
+       console.log("se termino la carga de datos");
+
+    }
+
+    // ejercicio para reconocer signo del zodiaco
+    let mes=prompt("ingrese mes de cumpleños");
+
+    while(mes!="terminar")
+    {
+      switch(mes)
+      {
+        case "enero":
+          console.log("usted es de capricornio o acuario");
+          mes="terminar";
+          break;
+        case "febrero":
+          console.log("usted es de acuario o piscis");
+          mes="terminar";
+          break;
+        case "marzo":
+          console.log("usted es de piscis o aries");
+          mes="terminar";
+          break;
+        case "abril":
+          console.log("usted es de aries o tauro");
+          mes="terminar";
+          break;
+        case "mayo":
+          console.log("usted es de tauro o geminis");
+          mes="terminar";
+          break;
+        case "junio":
+          console.log("usted es de geminis o cancer");
+          mes="terminar";
+          break;
+        case "julio":
+          console.log("usted es de cancer o leo");
+          mes="terminar";
+          break;
+        case "agosto":
+          console.log("usted es de leo o virgo");
+          mes="terminar";
+          break;
+        case "septiembre":
+          console.log("usted es de virgo o libra");
+          mes="terminar";
+          break;
+        case "octubre":
+          console.log("usted es de libra o escorpio");
+          mes="terminar";
+          break;
+        case "noviembre":
+          console.log("usted es de escorpio o sagitario");
+          mes="terminar";
+          break;
+        case "diciembre":
+          console.log("usted es de sagitario o capricornio");
+          mes="terminar";
+          break;
+      } //fin del switch
+      mes=prompt("reingrese mes")
+    } //fin del while
+    console.log("se termino la carga de datos")
+
+    // ejercicio de bucle continuo
+    for(let i=0; i < 7; i++)
+    {
+        if(i==3)
+        {
+          continue;
+        }
+        console.log("es el numero incrementando: "+i);
+    }
+}
+  </script>
+  
+    <!-- Custom styles for this template -->
+    <link href="signin.css" rel="stylesheet">
+  </head>
+  <body class="text-center">
+    
+<main class="form-signin w-100 m-auto">
+  <form>
+    <img class="mb-4" src="https://d3t3ozftmdmh3i.cloudfront.net/production/podcast_uploaded_episode400/339977/339977-1631534697795-31f11e299a096.jpg" alt="" width="72" height="57">
+    <h1 class="h3 mb-3 fw-normal">FOR Ciclos/iteraciones JS</h1>
+
+  
+   <button type="button" onclick="probarCodigo()"  class="btn btn-primary">Testear codigo</button>
+
+    <p class="mt-5 mb-3 text-muted">&copy; 2022</p>
+  </form>
+</main>
+
+  </body>
+ 
 </html>
