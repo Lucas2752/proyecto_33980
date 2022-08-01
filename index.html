@@ -27,104 +27,55 @@
 
    // Lucas Carrera
    function probarCodigo()
-{
-    {   
-        // ejercicio de concatenacion
+
+        // Regristro y bienvenida
+   {   
         let nombreIngresado=prompt("ingrese su nombre");
         let respuesta="s";
-        let edad;
+        let precio;
 
         console.log("Hola, bienvenido "+ nombreIngresado);
-        
         while(respuesta=="s")
        {
-         edad=parseInt(prompt("ingrese su edad"));
-         if(edad>17)
+          // Asesoramiento de acuerdo al presupuesto del cliente
+         precio=parseInt(prompt("ingrese cuanto desea gastar en la amoladora"));
+         if(precio>=12200)
          {
-           console.log("usted es mayor de edad");
+           console.log("La mejor opcion es comprar la amoladora Makita de $12.200");
+           console.log("Tambien podes comprar la amoladora Skill de $8.700");
+           console.log("O podes optar por la amoladora Gamma de $6.300")
+          }
+        
+         if(precio<12200 && precio>=8700)
+         {
+             console.log("La mejor opcion es comprar la amoladora Skill de $8.700");
+             console.log("Tambien podes comprar la amoladora Gamma de $6.300");
+         }
+
+         if(precio<8700 && precio>=6300)
+         {
+             console.log("La mejor opcion es comprar la amoladora Gamma de $6.300");
          }
         
-         if(edad<18)
+         if(precio<6300)
          {
-             console.log("usted es menor de edad");
+            console.log("No disponemos por el momento de ninguna amoladora por ese precio")
          }
-         respuesta=prompt("Si quiere correguir la edad, presione (s), en caso contrario ingrese cualquier tecla para terminar de cargar los datos");
+
+         respuesta=prompt("Si quiere correguir el monto, presione (s), en caso contrario ingrese cualquier tecla para terminar de cargar los datos");
+
+         {
+          // Calculo para presupuesto por x cantidad de tornillos
+         let cantidadTornillo = parseInt(prompt("Ingrese cantidad de tornillos que desea"));
+         let precioTornillo = 3;
+         let multiplicacion = cantidadTornillo * precioTornillo;
+         console.log("El precio por " + cantidadTornillo + " tornillos es de: $" + multiplicacion);
+         }
 
        }//fin del while
        console.log("se termino la carga de datos");
-
     }
 
-    // ejercicio para reconocer signo del zodiaco
-    let mes=prompt("ingrese mes de cumpleños");
-
-    while(mes!="terminar")
-    {
-      switch(mes)
-      {
-        case "enero":
-          console.log("usted es de capricornio o acuario");
-          mes="terminar";
-          break;
-        case "febrero":
-          console.log("usted es de acuario o piscis");
-          mes="terminar";
-          break;
-        case "marzo":
-          console.log("usted es de piscis o aries");
-          mes="terminar";
-          break;
-        case "abril":
-          console.log("usted es de aries o tauro");
-          mes="terminar";
-          break;
-        case "mayo":
-          console.log("usted es de tauro o geminis");
-          mes="terminar";
-          break;
-        case "junio":
-          console.log("usted es de geminis o cancer");
-          mes="terminar";
-          break;
-        case "julio":
-          console.log("usted es de cancer o leo");
-          mes="terminar";
-          break;
-        case "agosto":
-          console.log("usted es de leo o virgo");
-          mes="terminar";
-          break;
-        case "septiembre":
-          console.log("usted es de virgo o libra");
-          mes="terminar";
-          break;
-        case "octubre":
-          console.log("usted es de libra o escorpio");
-          mes="terminar";
-          break;
-        case "noviembre":
-          console.log("usted es de escorpio o sagitario");
-          mes="terminar";
-          break;
-        case "diciembre":
-          console.log("usted es de sagitario o capricornio");
-          mes="terminar";
-          break;
-      } //fin del switch
-      mes=prompt("reingrese mes")
-    } //fin del while
-    console.log("se termino la carga de datos")
-
-    // ejercicio de bucle continuo
-    for(let i=0; i < 7; i++)
-    {
-        if(i==3)
-        {
-          continue;
-        }
-        console.log("es el numero incrementando: "+i);
-    }
-}
   </script>
   
     <!-- Custom styles for this template -->
