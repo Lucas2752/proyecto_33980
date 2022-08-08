@@ -9,7 +9,7 @@
     <title>Clase 03 Coder House</title>
     <link rel="stylesheet" href="./style/style.css">
     <link rel="stylesheet" href="./style/bootstrap.min.css">
-
+    <script src="./js/codigo.js"></script>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sign-in/">
 
@@ -17,84 +17,22 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
 
 
-  <!--Archivos de javascript externos al html-->
-  
-  <!--script src="js/main.js"></script-->
 
-  <script type="text/javascript">
-    // en esta seccion tenemos codigo JS envebido en el HTML
-   // alert("bienvenidos del el HTML");
-
-   // Lucas Carrera
-   function probarCodigo()
-
-        // Regristro y bienvenida
-   {   
-        let nombreIngresado=prompt("ingrese su nombre");
-        let respuesta="s";
-        let precio;
-
-        console.log("Hola, bienvenido "+ nombreIngresado);
-        while(respuesta=="s")
-       {
-          // Asesoramiento de acuerdo al presupuesto del cliente
-         precio=parseInt(prompt("ingrese cuanto desea gastar en la amoladora"));
-         if(precio>=12200)
-         {
-           console.log("La mejor opcion es comprar la amoladora Makita de $12.200");
-           console.log("Tambien podes comprar la amoladora Skill de $8.700");
-           console.log("O podes optar por la amoladora Gamma de $6.300")
-          }
-        
-         if(precio<12200 && precio>=8700)
-         {
-             console.log("La mejor opcion es comprar la amoladora Skill de $8.700");
-             console.log("Tambien podes comprar la amoladora Gamma de $6.300");
-         }
-
-         if(precio<8700 && precio>=6300)
-         {
-             console.log("La mejor opcion es comprar la amoladora Gamma de $6.300");
-         }
-        
-         if(precio<6300)
-         {
-            console.log("No disponemos por el momento de ninguna amoladora por ese precio")
-         }
-
-         respuesta=prompt("Si quiere correguir el monto, presione (s), en caso contrario ingrese cualquier tecla para terminar de cargar los datos");
-
-         {
-          // Calculo para presupuesto por x cantidad de tornillos
-         let cantidadTornillo = parseInt(prompt("Ingrese cantidad de tornillos que desea"));
-         let precioTornillo = 3;
-         let multiplicacion = cantidadTornillo * precioTornillo;
-         console.log("El precio por " + cantidadTornillo + " tornillos es de: $" + multiplicacion);
-         }
-
-       }//fin del while
-       console.log("se termino la carga de datos");
-    }
-
-  </script>
-  
-    <!-- Custom styles for this template -->
     <link href="signin.css" rel="stylesheet">
   </head>
   <body class="text-center">
     
-<main class="form-signin w-100 m-auto">
-  <form>
-    <img class="mb-4" src="https://d3t3ozftmdmh3i.cloudfront.net/production/podcast_uploaded_episode400/339977/339977-1631534697795-31f11e299a096.jpg" alt="" width="72" height="57">
-    <h1 class="h3 mb-3 fw-normal">FOR Ciclos/iteraciones JS</h1>
+  <main class="form-signin w-100 m-auto">
+    <form>
+      <img class="mb-4" src="https://d3t3ozftmdmh3i.cloudfront.net/production/podcast_uploaded_episode400/339977/339977-1631534697795-31f11e299a096.jpg" alt="" width="72" height="57">
+      <h1 class="h3 mb-3 fw-normal">FOR Ciclos/iteraciones JS</h1>
 
-  
-   <button type="button" onclick="probarCodigo()"  class="btn btn-primary">Testear codigo</button>
+    
+    <button type="button" onclick="probarCodigo()"  class="btn btn-primary">Testear codigo</button>
 
-    <p class="mt-5 mb-3 text-muted">&copy; 2022</p>
-  </form>
-</main>
+      <p class="mt-5 mb-3 text-muted">&copy; 2022</p>
+    </form>
+  </main>
 
   </body>
- 
 </html>
