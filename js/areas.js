@@ -1,7 +1,7 @@
 
 function probarCodigoAreas(){
 
-
+    // Inicio del oficio carpintero
  let oficio=prompt("¿Usted es carpintero? Responder con si o no");
 
  while(oficio!="no"){
@@ -13,7 +13,7 @@ function probarCodigoAreas(){
    } //fin del switch
 } //fin del while
 
-
+    // Inicio del oficio herrero
 let oficio2=prompt("¿Usted es herrero? Responder con si o no");
 
 while(oficio2!="no"){
@@ -25,7 +25,7 @@ while(oficio2!="no"){
   } //fin del switch
 } //fin del while
 
-
+    // Inicio del oficio pintor
 let oficio3=prompt("¿Usted es pintor? Responder con si o no");
 
 while(oficio3!="no"){
