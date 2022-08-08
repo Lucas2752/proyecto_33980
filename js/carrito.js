@@ -21,3 +21,56 @@
  let aerosoles = [aerosol1,aerosol2,aerosol3,aerosol4,aerosol5,aerosol6,aerosol7,aerosol8]
 
  let carrito = [];
+
+ const mostrarProductos = () => {
+    let mensaje = "Selecciona el aerosol que deseas"
+    aerosoles.forEach(pintura => {
+        mensaje += `
+        Opcion ${pintura.id}: ${pintura.marca} tamaño: ${pintura.tamaño} = $${pintura.valor}`
+    })
+    mensaje += `
+        Opcion 0: Terminar compra`
+    let opcion = Number(prompt(mensaje))
+    return opcion;
+ }
+
+ let comprar = true
+
+ while (comprar) {
+    let opcion = mostrarProductos()
+    if (opcion >= 1 && opcion <= 8) {
+        let aerosolDeseado = aerosoles.find(pintura => pintura.id === opcion)
+        if (carrito.length === 0){
+            aerosolDeseado.cantidad = 1;
+            carrito.push(aerosolDeseado)
+        }else{
+            let pinturaCarrito = carrito.find(pintura => pintura.id === opcion)
+            if(pinturaCarrito){
+                pinturaCarrito.cantidad++;
+            }else{
+                aerosolDeseado.cantidad = 1;
+                carrito.push(aerosolDeseado)
+            }
+        }
+    }else {
+        comprar = false;
+    }
+ }
+
+const mostrarTotalCarrito=()=>{
+    let mensajeCarrito = "";
+    if(carrito.length > 0){
+        carrito.forEach(pintura =>{
+            mensajeCarrito += `
+                Marca: ${pintura.marca} - Cantidad ${pintura.cantidad} - Total: $${pintura.cantidad * pintura.valor}`
+        })
+        mensajeCarrito+= `
+                Total Carrito: $${carrito.reduce((total,pintura)=>total + (pintura.valor * pintura.cantidad),0)}`
+        alert(mensajeCarrito)
+    }else{
+        mensajeCarrito += 'No elejiste ningun aerosol'
+        alert(mensajeCarrito)
+    }
+}
+
+mostrarTotalCarrito()
