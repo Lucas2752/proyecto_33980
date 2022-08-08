@@ -1,5 +1,6 @@
    // Lucas Carrera
-   function probarCodigo()
+
+function probarCodigo()
 
         // Regristro y bienvenida
    {   
