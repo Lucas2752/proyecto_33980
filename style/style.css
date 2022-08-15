@@ -370,3 +370,7 @@ body {
 
 .medio3 {
   grid-column: 1 / 4; }
+
+  #divForm{
+    padding: 3px;
+  }
