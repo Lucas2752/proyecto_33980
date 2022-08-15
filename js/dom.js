@@ -1,3 +1,5 @@
+function probarDOM()
+
 {
 const redesSociales = document.getElementById('redesSociales')
 
