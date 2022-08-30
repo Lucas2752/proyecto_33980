@@ -36,10 +36,18 @@
 
 //Storage y JSON
 
-document.getElementById('name').value="Nombre";
-document.getElementById('email').value="Email@gmail.com";
-document.getElementById('telefono').value="Numero de telefono";
-document.getElementById('asunto').value="Consulta";
+// document.getElementById('name').value="Nombre";
+// document.getElementById('email').value="Email@gmail.com";
+// document.getElementById('telefono').value="Numero de telefono";
+// document.getElementById('asunto').value="Consulta";
+
+document.getElementById('name').placeholder="Nombre";
+document.getElementById('email').placeholder="Email@gmail.com";
+document.getElementById('telefono').placeholder="Numero de telefono";
+document.getElementById('asunto').placeholder="Consulta";
+
+
+
 class Subscriptor
 {
      constructor(obj) {

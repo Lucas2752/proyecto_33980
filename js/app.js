@@ -1,5 +1,17 @@
+// const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+let carritoStorage = [];
 
-let carritoDeCompras = []
+let carritoDeCompras = [];
+
+// let carrito
+// let carritoLocalStorage = JSON.parse( localStorage.getItem('carrito'))
+// if (carritoLocalStorage) {
+//     carrito = carritoLocalStorage
+// }else{
+//     carrito = []
+// }
+
+CargaProductosStorage();
 
 const contenedorProductos = document.getElementById('contenedor-productos');
 const contenedorCarrito = document.getElementById('carrito-contenedor');
@@ -7,8 +19,8 @@ const contenedorCarrito = document.getElementById('carrito-contenedor');
 const contadorCarrito = document.getElementById('contadorCarrito');
 const precioTotal = document.getElementById('precioTotal');
 
-const selecTamaños = document.getElementById('selecTamaños')
-const buscador = document.getElementById('search')
+const selecTamaños = document.getElementById('selecTamaños');
+const buscador = document.getElementById('search');
 
 
 
@@ -20,6 +32,12 @@ selecTamaños.addEventListener('change',()=>{
         mostrarProductos(stockProductos.filter(item=> item.tamaño == selecTamaños.value))
     }
 })
+
+
+
+
+// selecTamaños.addEventListener('change',()=>{(selecTamaños.value == 'all')? mostrarProductos(stockProductos) : mostrarProductos.filter(item=> item.tamaño == selecTamaños.value)})
+
 
 //Buscador
 buscador.addEventListener('input',()=>{
@@ -60,6 +78,7 @@ function mostrarProductos(array){
         agregarAlCarrito(item.id);
     })
    })
+
 }
 
 function agregarAlCarrito(id) {
@@ -75,7 +94,26 @@ function agregarAlCarrito(id) {
         mostrarCarrito(productoAgregar)
         actualizarCarrito()
     }
+
+
+
+
+
+
+
+    GuardarStorage()
+    
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -90,7 +128,8 @@ function mostrarCarrito(productoAgregar) {
                     <i class="fas fa-trash-alt"></i>
                     </button>`
     contenedorCarrito.appendChild(div)
-    
+    GuardarStorage()
+
     eliminar()
 }
 
@@ -115,5 +154,14 @@ function  actualizarCarrito (){
 
 
 
+function GuardarStorage() {
+    localStorage.setItem("productosViejo",JSON.stringify(carritoDeCompras));
+}
+function VerificarCargar() {
+    let arrayCarrito = JSON.parse(localStorage.getItem("productosViejo"));
+}
 
 
+function CargaProductosStorage() {
+    let productosStorage = JSON.parse(localStorage.getItem("productos"));
+}
