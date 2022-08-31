@@ -90,29 +90,16 @@ function agregarAlCarrito(id) {
     }else{
         let productoAgregar = stockProductos.find(item=> item.id == id)
         productoAgregar.cantidad = 1
+        // CrearOpcion(); //prueba
+
         carritoDeCompras.push(productoAgregar);
         mostrarCarrito(productoAgregar)
         actualizarCarrito()
     }
-
-
-
-
-
-
-
+    
     GuardarStorage()
     
 }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -126,12 +113,65 @@ function mostrarCarrito(productoAgregar) {
                     <p id="cant${productoAgregar.id}">cantidad:${productoAgregar.cantidad}</p>
                     <button class="boton-eliminar" id="${productoAgregar.id}">
                     <i class="fas fa-trash-alt"></i>
-                    </button>`
-    contenedorCarrito.appendChild(div)
-    GuardarStorage()
+                    </button>
+                    <button id="botonBorrarTodo"><i class="fas fa-trash-alt"></button>`
 
-    eliminar()
+
+                    contenedorCarrito.appendChild(div)
+                    eliminar()
+
+
+                    let borrarTodoCarro = document.getElementById(`botonBorrarTodo`); 
+                    borrarTodoCarro.addEventListener(`click`,()=> { .
+                        Swal.fire({
+                          title: 'Estas seguro?',
+                          text: 'Vas a borrar todo el carrito!!',
+                          icon: 'warning',
+                          showCancelButton: true,
+                          confirmButtonColor: '#3085d6',
+                          cancelButtonColor: '#d33',
+                          confirmButtonText: 'Si, Borrar!'
+                        }).then((result) => {
+                          if (result.isConfirmed) {
+                            BorrarCarrito();
+                            ActualizarStock();
+                            Swal.fire({
+                              title: 'Confirmado!',
+                              showConfirmButton: false,
+                              timer: 1500,
+                              icon: 'success'
+                            })
+                          }      
+                        })
+                    })
+
+                    contenedorCarrito.appendChild(div)
+                    GuardarStorage()
+                
+                    eliminarTodo()
 }
+
+function BorrarCarrito() {
+    localStorage.clear();
+    document.getElementsByClassName('modal-carrito').innerHTML = '';
+    carrito = []; 
+    mostrarCarrito();
+  }
+
+
+function eliminarTodo() {
+    let btnEliminarTodo = document.getElementsByClassName('boton-eliminar')
+    for (const btn of btnEliminarTodo) {
+        btn.addEventListener('click',(e)=>{
+            btn.parentElement.remove();
+            carritoDeCompras = carritoDeCompras.filter(item => item.id != e.target.parentElement.id)
+            actualizarCarrito()
+        })
+    }
+}
+
+
+
 
 
 function eliminar() {
