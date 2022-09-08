@@ -1,207 +1,233 @@
-// const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-let carritoStorage = [];
 
-let carritoDeCompras = [];
+const contenedorProductos = document.getElementById('contenedor-productos') // Contenedor del carrito
 
-// let carrito
-// let carritoLocalStorage = JSON.parse( localStorage.getItem('carrito'))
-// if (carritoLocalStorage) {
-//     carrito = carritoLocalStorage
-// }else{
-//     carrito = []
-// }
+const contenedorCarrito = document.getElementById('carrito-contenedor')
 
-CargaProductosStorage();
+const botonesCarrito = document.getElementById('botonesCarrito')
+const botonVaciar = document.getElementById('vaciar-carrito')
+const botonComprar = document.getElementById('comprar-carrito')
+const botonSalir = document.getElementById('carritoCerrar')
 
-const contenedorProductos = document.getElementById('contenedor-productos');
-const contenedorCarrito = document.getElementById('carrito-contenedor');
+const contadorCarrito = document.getElementById('contadorCarrito')
 
-const contadorCarrito = document.getElementById('contadorCarrito');
-const precioTotal = document.getElementById('precioTotal');
+const cantidad = document.getElementById('cantidad')
+const precioTotal = document.getElementById('precioTotal')
+const cantidadTotal = document.getElementById('cantidadTotal')
 
 const selecTamaños = document.getElementById('selecTamaños');
 const buscador = document.getElementById('search');
 
-
+let carrito = []
 
 //filtro
 selecTamaños.addEventListener('change',()=>{
     if(selecTamaños.value == 'all'){
-        mostrarProductos(stockProductos)
+        stockProductos(stockProductos)
     }else{
-        mostrarProductos(stockProductos.filter(item=> item.tamaño == selecTamaños.value))
+        stockProductos(stockProductos.filter(producto=> producto.tamaño == selecTamaños.value))
     }
 })
-
-
-
-
-// selecTamaños.addEventListener('change',()=>{(selecTamaños.value == 'all')? mostrarProductos(stockProductos) : mostrarProductos.filter(item=> item.tamaño == selecTamaños.value)})
-
 
 //Buscador
 buscador.addEventListener('input',()=>{
-    mostrarProductos(stockProductos.filter(item=> item.nombre.toLowerCase().includes(buscador.value.toLowerCase())))
+    mostrarProductos(stockProductos.filter(producto=> producto.nombre.toLowerCase().includes(buscador.value.toLowerCase())))
+})
+
+document.addEventListener('DOMContentLoaded', () => {
+    if (localStorage.getItem('carrito')){
+        carrito = JSON.parse(localStorage.getItem('carrito'))
+        actualizarCarrito()
+    }
 })
 
 
-mostrarProductos(stockProductos)
+botonComprar.addEventListener(`click`,()=> {
+        carrito.length = 0
+        Swal.fire({           // Alert repreguntando si desea realizar la compra
+          title: 'Estas seguro?',
+          text: 'Vas a obtener el carrito!!',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Si, Comprar!'
+        }).then((result) => {
+          if(result.isConfirmed) {
+            Swal.fire({       //Alert confirmacion de compra
+              title: 'Confirmado!',
+              showConfirmButton: false,
+              timer: 1500,
+              icon: 'success'
+            });
+            Swal.fire(
+                'Gracias por su compra!',
+                'Ferreteria Lucas',
+                'success'
+              );
+          };  
+        }); 
+        actualizarCarrito()
 
-//logica Ecommerce
-function mostrarProductos(array){ 
-    contenedorProductos.innerHTML=''
-   array.forEach(item =>{
+});
 
-    let div = document.createElement('div')
 
-    div.className = 'producto'
-    div.innerHTML= `<div class="card">
-                        <div class="card-image">
-                        <img src="${item.img}" />
-                        <span class="card-title">${item.nombre}</span>
-                        <a
-                            id="botonAgregar${item.id}"
-                            class="btn-floating halfway-fab waves-effect waves-light red"
-                            ><i class="material-icons">add_shopping_cart</i></a
-                        >
-                        </div>
-                        <div class="card-content">
-                        <p>${item.desc}</p>
-                        <p>Tamaño: ${item.tamaño}</p>
-                        <p>$${item.precio}</p>
-                        </div>
-                </div>`
-    contenedorProductos.appendChild(div)
+botonVaciar.addEventListener(`click`,()=> {
+        carrito.length = 0
 
-    let btnAgregar = document.getElementById(`botonAgregar${item.id}`)
-    btnAgregar.addEventListener('click',()=>{
-        agregarAlCarrito(item.id);
+        Swal.fire({         // Alert repreguntando si desea borrar el carrito
+          title: 'Estas seguro?',
+          text: 'Vas a borrar todo el carrito!!',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Si, Borrar!'
+        }).then((result) => {
+          if(result.isConfirmed) {   // Alert confirmando la cancelacion 
+            Swal.fire({
+              title: 'Carrito eliminado!',
+              showConfirmButton: false,
+              timer: 1500,
+              icon: 'error'
+            });
+            actualizarCarrito()
+          };  
+        }); 
+});
+
+botonSalir.addEventListener(`click`,()=> {
+    carrito.length = 0
+
+    let timerInterval
+    Swal.fire({                // Alert conteo de salida al efectuar el escape (X)
+      title: 'Estas saliendo del carrito',
+      html: 'Faltan <b></b> milisegundos.',
+      timer: 1000,
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading()
+        const b = Swal.getHtmlContainer().querySelector('b')
+        timerInterval = setInterval(() => {
+          b.textContent = Swal.getTimerLeft()
+        }, 100)
+      },
+      willClose: () => {
+        clearInterval(timerInterval)
+      }
+    }).then((result) => {
+      /* Read more about handling dismissals below */
+      if (result.dismiss === Swal.DismissReason.timer) {
+        console.log('I was closed by the timer')
+      }
     })
-   })
+});
 
-}
-
-function agregarAlCarrito(id) {
-    let existe = carritoDeCompras.find(produc => produc.id == id)
-    if(existe){
-        existe.cantidad = existe.cantidad + 1
-        document.getElementById(`cant${existe.id}`).innerHTML = `<p id="cant${existe.id}">cantidad:${existe.cantidad}</p>`
-        actualizarCarrito()
-    }else{
-        let productoAgregar = stockProductos.find(item=> item.id == id)
-        productoAgregar.cantidad = 1
-        // CrearOpcion(); //prueba
-
-        carritoDeCompras.push(productoAgregar);
-        mostrarCarrito(productoAgregar)
-        actualizarCarrito()
-    }
-    
-    GuardarStorage()
-    
-}
-
-
-
-
-function mostrarCarrito(productoAgregar) {
-
-    let div = document.createElement('div')
-    div.setAttribute('class', 'productoEnCarrito')
-    div.innerHTML += `<p>${productoAgregar.nombre}</p>
-                    <p>Precio: $${productoAgregar.precio}</p>
-                    <p id="cant${productoAgregar.id}">cantidad:${productoAgregar.cantidad}</p>
-                    <button class="boton-eliminar" id="${productoAgregar.id}">
-                    <i class="fas fa-trash-alt"></i>
+// Agregando HTML del carrito
+stockProductos.forEach((producto) => {
+    const div = document.createElement('div')
+    div.classList.add('producto')
+    div.innerHTML = 
+      `
+        <div class="card">
+            <div class="card-image">
+                <img src="${producto.img}" />
+                <span class="card-title">${producto.nombre}</span>
+                <a
+                    <button id="agregar${producto.id}" 
+                        class="btn-floating halfway-fab waves-effect waves-light red">
+                        <i class="material-icons">
+                             add_shopping_cart
+                        </i>
                     </button>
-                    <button id="botonBorrarTodo"><i class="fas fa-trash-alt"></button>`
+                </a>                
+            </div>
+            <div class="card-content">
+                <p>${producto.desc}</p>
+                <p> Tamaño: ${producto.tamaño}</p>
+                <p class="precioProducto"> Precio: $${producto.precio}</p>
+            </div>
+        </div>
+      `
+    contenedorProductos.appendChild(div)
+    const boton = document.getElementById(`agregar${producto.id}`) //Por cada elemento de mi array creo un div con su ID
+    boton.addEventListener('click', () => {
+        agregarAlCarrito(producto.id)
+    })
+})
 
+const agregarAlCarrito = (prodId) => {
 
-                    contenedorCarrito.appendChild(div)
-                    eliminar()
-
-
-                    let borrarTodoCarro = document.getElementById(`botonBorrarTodo`); 
-                    borrarTodoCarro.addEventListener(`click`,()=> { .
-                        Swal.fire({
-                          title: 'Estas seguro?',
-                          text: 'Vas a borrar todo el carrito!!',
-                          icon: 'warning',
-                          showCancelButton: true,
-                          confirmButtonColor: '#3085d6',
-                          cancelButtonColor: '#d33',
-                          confirmButtonText: 'Si, Borrar!'
-                        }).then((result) => {
-                          if (result.isConfirmed) {
-                            BorrarCarrito();
-                            ActualizarStock();
-                            Swal.fire({
-                              title: 'Confirmado!',
-                              showConfirmButton: false,
-                              timer: 1500,
-                              icon: 'success'
-                            })
-                          }      
-                        })
-                    })
-
-                    contenedorCarrito.appendChild(div)
-                    GuardarStorage()
-                
-                    eliminarTodo()
-}
-
-function BorrarCarrito() {
-    localStorage.clear();
-    document.getElementsByClassName('modal-carrito').innerHTML = '';
-    carrito = []; 
-    mostrarCarrito();
-  }
-
-
-function eliminarTodo() {
-    let btnEliminarTodo = document.getElementsByClassName('boton-eliminar')
-    for (const btn of btnEliminarTodo) {
-        btn.addEventListener('click',(e)=>{
-            btn.parentElement.remove();
-            carritoDeCompras = carritoDeCompras.filter(item => item.id != e.target.parentElement.id)
-            actualizarCarrito()
+// Si el producto ya existe se va a sumar en el carrito pero no va a afectar mas de una vez al contador del carrito
+    const existe = carrito.some (prod => prod.id === prodId) //Compruebo si el elemento ya existe en el carrito
+    if (existe){
+        const prod = carrito.map (prod => { //Busca el producto igual y le suma la cantidad al carrito
+            if (prod.id === prodId){
+                prod.cantidad++
+            }
         })
+    } else { //Si no existe lo agregamos por primera vez al carrito y por unica vez al contador
+        const item = stockProductos.find((prod) => prod.id === prodId)
+        carrito.push(item)
     }
+    actualizarCarrito()
 }
 
-
-
-
-
-function eliminar() {
-    let btnEliminar = document.getElementsByClassName('boton-eliminar')
-    for (const btn of btnEliminar) {
-        btn.addEventListener('click',(e)=>{
-            btn.parentElement.remove();
-            carritoDeCompras = carritoDeCompras.filter(item => item.id != e.target.parentElement.id)
-            actualizarCarrito()
-        })
-    }
+//Va a buscar que elemento le indique y va a borrar el indice de tal item
+const eliminarDelCarrito = (prodId) => {
+    const item = carrito.find((prod) => prod.id === prodId)
+    const indice = carrito.indexOf(item) 
+    carrito.splice(indice, 1) 
+    actualizarCarrito() 
+    console.log(carrito)
 }
 
+//Siempre que llame a esta const va a borrar el nodo, recorrer el array y devolver la info actualizada
+const actualizarCarrito = () => {
+    contenedorCarrito.innerHTML = "" 
+    carrito.forEach((prod) => {
+        const div = document.createElement('div')
+        div.className = ('productoEnCarrito')
+        div.innerHTML = 
+        `
+          <p>${prod.nombre}</p>
+          <p>Precio:$${prod.precio}</p>
+          <p>Cantidad: <span id="cantidad">${prod.cantidad}</span></p>
+          <button onclick="eliminarDelCarrito(${prod.id})" class="boton-eliminar"><i class="fas fa-trash-alt"></i></button>
+        `
+        contenedorCarrito.appendChild(div)
+        localStorage.setItem('carrito', JSON.stringify(carrito))
+    })
 
-function  actualizarCarrito (){
-   contadorCarrito.innerText= carritoDeCompras.reduce((acc,el)=> acc + el.cantidad, 0)            
-   precioTotal.innerText = carritoDeCompras.reduce((acc,el)=> acc + (el.precio * el.cantidad), 0)
-}                                                             
-
-
-
-
-function GuardarStorage() {
-    localStorage.setItem("productosViejo",JSON.stringify(carritoDeCompras));
+    contadorCarrito.innerText = carrito.length 
+    console.log(carrito) 
+    precioTotal.innerText = carrito.reduce((acc, prod) => acc + prod.cantidad * prod.precio, 0)    
+    VerifyStorage()
 }
-function VerificarCargar() {
-    let arrayCarrito = JSON.parse(localStorage.getItem("productosViejo"));
-}
 
-
-function CargaProductosStorage() {
-    let productosStorage = JSON.parse(localStorage.getItem("productos"));
-}
+//Busca algun resultado en el localStorage, lo devuelve y nos da un alert
+function VerifyStorage() {
+    let arrayCarrito = JSON.parse(localStorage.getItem("carrito"));
+    if(arrayCarrito) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1800,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      });
+      Toastify({  //Si encuentra algo nos avisa al recargar la pagina
+        text: 'Tu carrito te espera!', 
+        duration: 1900,
+        position: 'right',
+        gravity: "top"
+    }).showToast()
+      Buttons();
+      for(elemento of arrayCarrito ) {
+        AddCart(elemento.codigo);
+      };
+    };
+  };

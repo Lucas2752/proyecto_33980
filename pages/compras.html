@@ -14,42 +14,37 @@
     <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@200&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Allison&family=Lexend+Deca:wght@200&display=swap" rel="stylesheet">   
     <link rel="shortcut icon" href="../img/depositphotos_388215936-stock-illustration-a-logo-of-plumber-or.jpg" type="image/x-icon">
-    <link rel="stylesheet" href="../style/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="/style/bootstrap.min.css">
     <link rel="stylesheet" href="../style/style.css" />
+    <script src="https://kit.fontawesome.com/d7d9422d2d.js" crossorigin="anonymous"></script>
+
   </head>
-  <body>
-    <header>
-      <nav class="container">
-        <div class="navbar">
-            <p class="logo">Ferretería Lucas</p>
-        <ul>
-            <li class="navmenu"><a href="../index.html">Inicio</a></li>
-            <li class="navmenu active"><a href="./compras.html">Carrito</a></li>
-            <li class="navmenu"><a href="./herramienta.html">Herramientas</a></li>
-            <li class="navmenu"><a href="./iluminacion.html">Iluminacion</a></li>
-            <li class="navmenu"><a href="./pintura.html">Pintura</a></li>
-            <li class="navmenu"><a href="./contacto.html">Contacto</a></li>
-        </ul>
-        </div>
-    </nav> 
-    </header>
+<body>
+  <header>
+    <nav class="container">
+      <div class="navbar">
+          <p id="logo" class="logo">Ferretería Lucas</p>
+      <ul>
+          <li class="navmenu"><a href="../index.html">Inicio</a></li>
+          <li class="navmenu active"><a href="./compras.html">Carrito</a></li>
+          <li class="navmenu"><a href="./herramienta.html">Herramientas</a></li>
+          <li class="navmenu"><a href="./iluminacion.html">Iluminacion</a></li>
+          <li class="navmenu"><a href="./pintura.html">Pintura</a></li>
+          <li class="navmenu"><a href="./contacto.html">Contacto</a></li>
+      </ul>
+      </div>
+  </nav> 
+  </header>
 
-
-      
     <div id="divCarrito">
-      
-      <!-- <h4>Buscador </h4> -->
-
-      <input
+        <input
         id="search"
         type="text"
         class="input"
         placeholder="Buscar producto"
-      />
-
-      <button id="boton-carrito">
-        <i class="fas fa-shopping-cart"></i><span id="contadorCarrito">0</span>
-      </button>
+        />
+      <button id="boton-carrito"><i class="fas fa-shopping-cart"></i><span id="contadorCarrito">0</span></button>
     </div>
 
     <div class="seleccion">
@@ -61,27 +56,22 @@
     </div>
 
     <main id="contenedor-productos">
-
     </main>
 
     <div class="modal-contenedor">
-      <div class="modal-carrito">
-        <h3>Carrito</h3>
-        <button id="carritoCerrar"><i class="fas fa-times-circle"></i></button>
-        <div id="carrito-contenedor">
+        <div id="botonesCarrito" class="modal-carrito">
+            <h3>Carrito</h3>
+            <button id="carritoCerrar"><i class="fas fa-times-circle"></i></button>
+            <div id="carrito-contenedor">
 
+            </div>
+            <p class="precioProducto">Precio total: $<span id="precioTotal">0</span></p>
+            <div id="botonesCarrito">
+              <button id="vaciar-carrito" class="boton-agregar">Vaciar carrito</button>
+              <button id="comprar-carrito" class="boton-agregar">Comprar carrito</button>
+            </div>
         </div>
-        <p class="precioProducto">
-          Precio total: $<span id="precioTotal">0</span>
-        </p>
-      </div>
     </div>
-      
-
-    <script src="../js/stock.js"></script>
-    <script src="../js/modal.js"></script>
-    <script src="../js/app.js"></script>
-
     <footer>
       <div class="social-buttons">
           <a href="https://www.facebook.com/" target="blank_" class="social-buttons__button social-button social-button--facebook">
@@ -110,5 +100,10 @@
       <span class="terminos">Las fotos son a modo ilustrativo. La venta de cualquiera de los productos publicados está sujeta a la verificación de stock. Los precios online y los planes de financiación para los productos presentados/publicados son válidos exclusivamente para la compra vía internet. Las especificaciones técnicas y descripciones están sujetas a cambios sin previo aviso.</span>
       <span class="copyright">Copyright &copy; 2018-2022 Ferreteria Lucas</span>
   </footer>
-  </body>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script defer src="../js/stock.js"></script>
+    <script defer src="../js/modal.js"></script>
+    <script defer src="../js/app.js"></script>
+</body>
 </html>
