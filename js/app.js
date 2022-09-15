@@ -3,6 +3,8 @@ const contenedorProductos = document.getElementById('contenedor-productos') // C
 
 const contenedorCarrito = document.getElementById('carrito-contenedor')
 
+const apiKey = `dcacea55e6bce077bd20412a0dc1c31f`;
+
 const botonesCarrito = document.getElementById('botonesCarrito')
 const botonVaciar = document.getElementById('vaciar-carrito')
 const botonComprar = document.getElementById('comprar-carrito')
@@ -17,7 +19,40 @@ const cantidadTotal = document.getElementById('cantidadTotal')
 const selecTamaños = document.getElementById('selecTamaños');
 const buscador = document.getElementById('search');
 
+
+
 let carrito = []
+
+//Api del clima.
+const fetchData = position => {
+  const {latitude, longitude} = position.coords;
+  fetch(`https://api.openweathermap.org/data/2.5/weather?units=metric&lat=${latitude}&lon=${longitude}&appid=${apiKey}`)
+  .then(response => response.json())
+  .then(data => WeatherData(data))
+};
+const WeatherData = data => {
+  let temperatura = document.getElementById("temperatura");
+  temperatura.innerHTML = `La Temperatura en ${data.name} es de ${data.main.temp}°`
+  if(Number(data.main.temp) > 15) {
+    Swal.fire({
+      title: 'El dia es especial para que pruebes nuestra pintura!',
+      showConfirmButton: false,
+      timer: 4000,
+      icon: 'success'
+    });
+  }else {
+    Swal.fire({
+      title: 'Con el frio y humedad te recomendamos nuestros aerosoles de secado rapido!',
+      showConfirmButton: false,
+      timer: 4000,
+      icon: 'success'
+    });
+  };
+};
+
+const OnLoad = ()=> {
+  navigator.geolocation.getCurrentPosition(fetchData);
+};
 
 //filtro
 selecTamaños.addEventListener('change',()=>{
